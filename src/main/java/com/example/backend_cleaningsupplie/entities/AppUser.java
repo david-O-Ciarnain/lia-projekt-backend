@@ -3,6 +3,7 @@ package com.example.backend_cleaningsupplie.entities;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,6 +15,9 @@ public class AppUser {
 
 
     @Id
+    @Getter
+    @Setter
+    @NonNull
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     int id;
 

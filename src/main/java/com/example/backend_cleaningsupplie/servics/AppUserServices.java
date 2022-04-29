@@ -4,16 +4,17 @@ package com.example.backend_cleaningsupplie.servics;
 import com.example.backend_cleaningsupplie.entities.AppUser;
 import com.example.backend_cleaningsupplie.repo.AppUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class AppUserServices {
 
     @Autowired
     AppUserRepo appUserRepo;
 
-
-    public List<AppUser> getAppUser() {
+    public List<AppUser> findAllAppUsers() {
         return appUserRepo.findAll();
     }
 
@@ -25,46 +26,28 @@ public class AppUserServices {
         return appUserRepo.save(appUser);
     }
 
-    public void deleteAppUser(AppUser appUser) {
-        appUserRepo.delete(appUser);
+    public void deleteAppUserById(int id) {
+        appUserRepo.deleteById(id);
     }
 
     public AppUser updateAppUser(int id, AppUser changedAppUser) {
-        AppUser existingAppUser = appUserRepo.findById(id).orElseThrow();
+        return appUserRepo.findById(id)
+                .map(user -> {
+                    user.setUser_name(changedAppUser.getUser_name());
+                    user.setPassword(changedAppUser.getPassword());
+                    user.setFirst_name(changedAppUser.getFirst_name());
+                    user.setLast_name(changedAppUser.getLast_name());
+                    user.setMail(changedAppUser.getMail());
+                    user.setStreet(changedAppUser.getStreet());
+                    user.setCity(changedAppUser.getCity());
+                    user.setTel_number(changedAppUser.getTel_number());
+                    user.setPost_number(changedAppUser.getPost_number());
 
-        if (changedAppUser.getUser_name() != null) {
-            existingAppUser.setUser_name(changedAppUser.getUser_name());
-        }
-        if (changedAppUser.getPassword() != null) {
-            existingAppUser.setPassword(changedAppUser.getPassword());
-        }
-        if (changedAppUser.getFirst_name() != null) {
-            existingAppUser.setFirst_name(changedAppUser.getFirst_name());
-        }
-        if (changedAppUser.getLast_name() != null) {
-            existingAppUser.setLast_name(changedAppUser.getLast_name());
-        }
-        if (changedAppUser.getMail() != null) {
-            existingAppUser.setMail(changedAppUser.getMail());
-        }
-        if (changedAppUser.getTel_number() != null) {
-            existingAppUser.setTel_number(changedAppUser.getTel_number());
-        }
-        if (changedAppUser.getCity() != null) {
-            existingAppUser.setCity(changedAppUser.getCity());
-        }
-
-        if (changedAppUser.getStreet() != null) {
-            existingAppUser.setStreet(changedAppUser.getStreet());
-        }
-        if (changedAppUser.getPost_number() != null) {
-            existingAppUser.setPost_number(changedAppUser.getPost_number());
-        }
-
-        appUserRepo.save(existingAppUser);
-
-        return existingAppUser;
+                    return appUserRepo.save(user);
+                })
+                .orElseGet(() -> {
+                    changedAppUser.setId(id);
+                    return appUserRepo.save(changedAppUser);
+                });
     }
-
-
 }
