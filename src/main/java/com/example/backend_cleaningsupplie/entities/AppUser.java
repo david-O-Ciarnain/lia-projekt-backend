@@ -3,6 +3,7 @@ package com.example.backend_cleaningsupplie.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,6 +17,9 @@ public class AppUser {
     @Getter
     @Setter
     @Id
+    @Getter
+    @Setter
+    @NonNull
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     int id;
 
