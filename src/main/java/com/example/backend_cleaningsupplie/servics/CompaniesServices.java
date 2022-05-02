@@ -15,6 +15,11 @@ public class CompaniesServices {
     public List<Companies> findAllCompanies() {
         return companiesRepo.findAll();
     }
+    public Companies findCompaniesById(int id) {
+
+       checkIfIdIsValid(id);
+        return companiesRepo.findById(id).orElseThrow();
+    }
 
     public Companies saveCompanies(Companies companies) {
         Optional<Companies> companiesByName = companiesRepo.findByCompaniesName(companies.getCompaniesName());
@@ -27,10 +32,7 @@ public class CompaniesServices {
 
     public void deleteCompaniesById(int id) {
 
-        boolean exists = companiesRepo.existsById(id);
-        if (!exists) {
-            throw new IllegalStateException("Company with id" + id + " do not exist");
-        }
+       checkIfIdIsValid(id);
         companiesRepo.deleteById(id);
     }
     public void updateCompany(int id,Companies changedCompany){
@@ -49,4 +51,12 @@ public class CompaniesServices {
                     return companiesRepo.save(changedCompany);
                 });
     }
+
+    public void checkIfIdIsValid(int id){
+        boolean exists = companiesRepo.existsById(id);
+        if (!exists) {
+            throw new IllegalStateException("Company with id" + id + " do not exist");
+        }
+    }
+
 }
