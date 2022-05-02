@@ -4,16 +4,17 @@ package com.example.backend_cleaningsupplie.servics;
 import com.example.backend_cleaningsupplie.entities.AppUser;
 import com.example.backend_cleaningsupplie.repo.AppUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class AppUserServices {
 
     @Autowired
     AppUserRepo appUserRepo;
 
-
-    public List<AppUser> getAppUser() {
+    public List<AppUser> findAllAppUsers() {
         return appUserRepo.findAll();
     }
 
@@ -25,11 +26,12 @@ public class AppUserServices {
         return appUserRepo.save(appUser);
     }
 
-    public void deleteAppUser(AppUser appUser) {
-        appUserRepo.delete(appUser);
+    public void deleteAppUserById(int id) {
+        appUserRepo.deleteById(id);
     }
 
     public AppUser updateAppUser(int id, AppUser changedAppUser) {
+
 
 
     return appUserRepo.findById(id)
@@ -47,5 +49,7 @@ public class AppUserServices {
                 changedAppUser.setId(id);
                 return appUserRepo.save(changedAppUser);
             });
+
+   
     }
 }
