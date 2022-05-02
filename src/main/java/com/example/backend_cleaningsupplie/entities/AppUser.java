@@ -1,5 +1,6 @@
 package com.example.backend_cleaningsupplie.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -57,11 +58,26 @@ public class AppUser {
     @Column
     private int age;
 
+    @ManyToOne
+    @JoinColumn(name = "companies_id", nullable = false)
+    private Companies companies;
+
+
 
 
     public AppUser(String user_name, String password) {
         this.user_name = user_name;
         this.password = password;
+    }
+
+    public AppUser(String user_name, String password, String first_name, String last_name, int employee_number, String mail, LocalDate date_of_birth) {
+        this.user_name = user_name;
+        this.password = password;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.employee_number = employee_number;
+        this.mail = mail;
+        this.date_of_birth = date_of_birth;
     }
 
     public AppUser (){

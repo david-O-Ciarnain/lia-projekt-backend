@@ -5,10 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table
-
 public class Companies {
 
     @Id
@@ -36,6 +36,9 @@ public class Companies {
     @Setter
     @Column
     String CompaniesAdress;
+
+    @OneToMany(mappedBy = "companies")
+    Set<AppUser> appUserSet;
 
     public Companies() {
     }
