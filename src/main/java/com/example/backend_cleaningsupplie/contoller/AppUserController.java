@@ -51,7 +51,7 @@ public class AppUserController {
     @PutMapping("/appuser/{id}")
     public AppUser updateAppUser(@PathVariable("id") int id, AppUser changedAppUser) {
 
-        return changedAppUser;
+        return appUser.updateAppUser(id,changedAppUser);
     }
 }
 

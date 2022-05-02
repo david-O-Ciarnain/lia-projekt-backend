@@ -18,18 +18,22 @@ public class CompaniesController {
     public List<Companies> findAllCompanies(){
         return companiesServices.findAllCompanies();
     }
+
     @GetMapping(path = "{id}")
     public Companies findCompaniesById(@PathVariable("id")int id){
         return companiesServices.findCompaniesById(id);
     }
+
     @PostMapping
     public void saveCompany(@RequestBody Companies companies){
         companiesServices.saveCompanies(companies);
     }
+
     @DeleteMapping(path = "{id}")
     public void deleteCompanyById(@PathVariable("id")int id){
         companiesServices.deleteCompaniesById(id);
     }
+
     @PutMapping(path = "{id}")
     public void updateCompanies(@PathVariable("id")int id, Companies changedCompanies){
         companiesServices.updateCompany(id,changedCompanies);

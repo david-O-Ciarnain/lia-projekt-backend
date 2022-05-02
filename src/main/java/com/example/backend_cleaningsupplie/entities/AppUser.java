@@ -1,14 +1,16 @@
 package com.example.backend_cleaningsupplie.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
 
+@Getter
+@Setter
+@EqualsAndHashCode
 @Entity
 @Table
 public class AppUser {
@@ -16,47 +18,39 @@ public class AppUser {
 
 
     @Id
-    @Getter
-    @Setter
-    @NonNull
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(
+            name = "appuser_sequence",
+            sequenceName = "appuser-sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+    generator = "appuser_sequence")
     int id;
 
-    @Getter
-    @Setter
-    @Column
+
+    @Column(unique = true)
     String user_name;
 
-    @Getter
-    @Setter
+
     @Column
     String password;
 
-    @Getter
-    @Setter
+
     @Column
     String first_name;
 
-    @Getter
-    @Setter
+
     @Column
     String last_name;
 
-    @Getter
-    @Setter
-    @Column
+    @Column(unique = true)
     int employee_number;
 
-    @Getter
-    @Setter
-    @Column
+    @Column(unique = true)
     String mail;
 
-    @Getter
-    @Setter
     @Column
     LocalDate date_of_birth;
-
 
     @Column
     private int age;
