@@ -1,19 +1,20 @@
 package com.example.backend_cleaningsupplie.entities;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Table
 public class AppUser {
 
 
-
+    @Getter
+    @Setter
     @Id
     @Getter
     @Setter
@@ -44,42 +45,22 @@ public class AppUser {
     @Getter
     @Setter
     @Column
-    String social_security_number;
-
-    @Getter
-    @Setter
-    @Column
     int employee_number;
 
     @Getter
     @Setter
     @Column
-    String city;
-
-    @Getter
-    @Setter
-    @Column
-    String street;
-
-    @Getter
-    @Setter
-    @Column
-    String post_number;
-
-    @Getter
-    @Setter
-    @Column
-    String tel_number;
-
-    @Getter
-    @Setter
-    @Column
-    String gender;
-
-    @Getter
-    @Setter
-    @Column
     String mail;
+
+    @Getter
+    @Setter
+    @Column
+    LocalDate date_of_birth;
+
+
+    @Column
+    private int age;
+
 
 
     public AppUser(String user_name, String password) {
@@ -89,5 +70,8 @@ public class AppUser {
 
     public AppUser (){
 
+    }
+    public int getAge() {
+        return Period.between(date_of_birth,LocalDate.now()).getYears();
     }
 }
