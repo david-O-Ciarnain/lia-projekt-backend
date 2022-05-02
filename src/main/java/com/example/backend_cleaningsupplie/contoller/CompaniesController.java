@@ -1,4 +1,4 @@
-package com.example.backend_cleaningsupplie.controller;
+package com.example.backend_cleaningsupplie.contoller;
 
 import com.example.backend_cleaningsupplie.entities.Companies;
 import com.example.backend_cleaningsupplie.servics.CompaniesServices;

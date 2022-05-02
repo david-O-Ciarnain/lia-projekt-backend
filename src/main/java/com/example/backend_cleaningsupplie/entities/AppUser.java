@@ -14,8 +14,7 @@ import java.time.Period;
 public class AppUser {
 
 
-    @Getter
-    @Setter
+
     @Id
     @Getter
     @Setter
@@ -63,7 +62,7 @@ public class AppUser {
     private int age;
 
     @ManyToOne
-    @JoinColumn(name = "companies_id", nullable = false)
+    @JoinColumn(name = "companies_id")
     private Companies companies;
 
 
