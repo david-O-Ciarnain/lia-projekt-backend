@@ -39,7 +39,7 @@ public class AppUserServices {
 
         return appUserRepo.findById(id)
                 .map(user -> {
-                    user.setUserName(changedAppUser.getUserName());
+                    user.setUserName(changedAppUser.getUsername());
                     user.setPassword(changedAppUser.getPassword());
                     user.setFirstName(changedAppUser.getFirstName());
                     user.setLastName(changedAppUser.getLastName());
@@ -57,10 +57,10 @@ public class AppUserServices {
 
     //registration functionality
     public String signUpAppUser(AppUser appUser) {
-        boolean userExists = appUserRepo.findByMail(appUser.getMail()).isPresent();
+        boolean userExists = appUserRepo.findByUsername(appUser.getUsername()).isPresent();
 
         if (userExists) {
-            throw new IllegalStateException("email already taken!! try something differens");
+            throw new IllegalStateException("username already taken!! try something differens");
         }
 
         String encodePassword = bCryptPasswordEncoder.encode(appUser.getPassword());
