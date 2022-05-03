@@ -3,10 +3,12 @@ package com.example.backend_cleaningsupplie.servics;
 import com.example.backend_cleaningsupplie.entities.Companies;
 import com.example.backend_cleaningsupplie.repo.CompaniesRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CompaniesServices {
 
     @Autowired
@@ -36,6 +38,7 @@ public class CompaniesServices {
         companiesRepo.deleteById(id);
     }
     public void updateCompany(int id,Companies changedCompany){
+
 
         companiesRepo.findById(id)
                 .map(companies -> {

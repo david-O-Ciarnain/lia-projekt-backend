@@ -32,8 +32,6 @@ public class AppUserServices {
 
     public AppUser updateAppUser(int id, AppUser changedAppUser) {
 
-
-
     return appUserRepo.findById(id)
             .map(user ->{
             user.setUser_name(changedAppUser.getUser_name());
