@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -35,7 +34,7 @@ public class AppUser implements UserDetails {
 
 
     @Column(unique = true)
-    String user_name;
+    String userName;
 
 
     @Column
@@ -43,11 +42,11 @@ public class AppUser implements UserDetails {
 
 
     @Column
-    String first_name;
+    String firstName;
 
 
     @Column
-    String last_name;
+    String lastName;
 
     /* @Column(unique = true)
      int employee_number;
@@ -56,7 +55,7 @@ public class AppUser implements UserDetails {
     String mail;
 
     @Column
-    LocalDate date_of_birth;
+    LocalDate dateOfBirth;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -75,13 +74,13 @@ public class AppUser implements UserDetails {
     private Companies companies;
 
 
-    public AppUser(String user_name, String password, String first_name, String last_name, String mail, LocalDate date_of_birth, AppUserRole appUserRole) {
-        this.user_name = user_name;
+    public AppUser(String user_name, String password, String firstName, String last_name, String mail, LocalDate dateOfBirth, AppUserRole appUserRole) {
+        this.userName = user_name;
         this.password = password;
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.firstName = firstName;
+        this.lastName = last_name;
         this.mail = mail;
-        this.date_of_birth = date_of_birth;
+        this.dateOfBirth = dateOfBirth;
         this.appUserRole = appUserRole;
     }
 

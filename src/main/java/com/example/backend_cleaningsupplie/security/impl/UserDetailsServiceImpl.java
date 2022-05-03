@@ -16,13 +16,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     AppUserRepo appUserRepo;
     BCryptPasswordEncoder bCryptPasswordEncoder;
+    //TODO: ned something else in the text of USER_NOT_FOUND
+    private final static String USER_NOT_FOUND ="user with email %s not found";
 
-    private final static String MAIL_NOT_FOUND ="user with email %s not found";
-    //check for if user exist or is a valid username.
-    // don't know what should be username but using mail for the moment
     @Override
-    public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
-        return appUserRepo.findByMail(mail).orElseThrow(() -> new UsernameNotFoundException(String.format(MAIL_NOT_FOUND,mail)));
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return appUserRepo.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND,username)));
     }
 
 

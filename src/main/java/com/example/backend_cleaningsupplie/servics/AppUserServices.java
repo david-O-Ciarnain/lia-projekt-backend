@@ -39,12 +39,12 @@ public class AppUserServices {
 
         return appUserRepo.findById(id)
                 .map(user -> {
-                    user.setUser_name(changedAppUser.getUser_name());
+                    user.setUserName(changedAppUser.getUserName());
                     user.setPassword(changedAppUser.getPassword());
-                    user.setFirst_name(changedAppUser.getFirst_name());
-                    user.setLast_name(changedAppUser.getLast_name());
+                    user.setFirstName(changedAppUser.getFirstName());
+                    user.setLastName(changedAppUser.getLastName());
                     user.setMail(changedAppUser.getMail());
-                    user.setDate_of_birth(changedAppUser.getDate_of_birth());
+                    user.setDateOfBirth(changedAppUser.getDateOfBirth());
 
                     return appUserRepo.save(user);
                 })
