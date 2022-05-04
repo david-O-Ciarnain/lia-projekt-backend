@@ -1,6 +1,6 @@
-package com.example.backend_cleaningsupplie.repo;
+package com.example.backend_cleaningsupplie.companies;
 
-import com.example.backend_cleaningsupplie.entities.Companies;
+import com.example.backend_cleaningsupplie.companies.Companies;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,13 +1,10 @@
 package com.example.backend_cleaningsupplie.registration;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "rest/registration")
+@RequestMapping(path = "test/v1/registration")
 @AllArgsConstructor
 public class RegistrationController {
 
@@ -18,4 +15,8 @@ public class RegistrationController {
         return registrationService.register(request);
     }
 
+ @GetMapping(path = "confirm")
+    public String confirm(@RequestParam("token")String token){
+        return registrationService.confirmToken(token);
+ }
 }

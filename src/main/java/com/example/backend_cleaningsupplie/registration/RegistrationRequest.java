@@ -1,17 +1,16 @@
 package com.example.backend_cleaningsupplie.registration;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Getter
-@AllArgsConstructor
+@Setter
 @EqualsAndHashCode
 @ToString
+@AllArgsConstructor
 public class RegistrationRequest {
+
 
     private final String userName;
     private final String password;
@@ -19,4 +18,5 @@ public class RegistrationRequest {
     private final String lastName;
     private final String mail;
     private final LocalDate dateOfBirth;
+
 }

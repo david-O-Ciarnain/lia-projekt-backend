@@ -1,7 +1,5 @@
-package com.example.backend_cleaningsupplie.servics;
+package com.example.backend_cleaningsupplie.companies;
 
-import com.example.backend_cleaningsupplie.entities.Companies;
-import com.example.backend_cleaningsupplie.repo.CompaniesRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +21,13 @@ public class CompaniesServices {
         return companiesRepo.findById(id).orElseThrow();
     }
 
-    public Companies saveCompanies(Companies companies) {
+    public void saveCompanies(Companies companies) {
         Optional<Companies> companiesByName = companiesRepo.findByCompaniesName(companies.getCompaniesName());
 
         if(companiesByName.isPresent()){
             throw new IllegalStateException("Company already exists");
         }
-        return companiesRepo.save(companies);
+        companiesRepo.save(companies);
     }
 
     public void deleteCompaniesById(int id) {

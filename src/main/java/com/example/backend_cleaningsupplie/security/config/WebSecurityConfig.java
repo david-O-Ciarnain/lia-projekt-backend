@@ -1,7 +1,6 @@
 package com.example.backend_cleaningsupplie.security.config;
 
-import com.example.backend_cleaningsupplie.security.impl.UserDetailsServiceImpl;
-import com.example.backend_cleaningsupplie.servics.AppUserServices;
+import com.example.backend_cleaningsupplie.appuser.AppUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,13 +16,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  private final UserDetailsServiceImpl userDetailsService;
-  private final   BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final AppUserService appUserService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+
                 .authorizeRequests()
                 .antMatchers("/rest/registration/**")
                 .permitAll()
@@ -33,16 +33,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth){
         auth.authenticationProvider(daoAuthenticationProvider());
     }
 
 
     @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider(){
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(bCryptPasswordEncoder);
-        provider.setUserDetailsService(userDetailsService);
+        provider.setUserDetailsService(appUserService);
         return provider;
     }
 }

@@ -1,13 +1,12 @@
-package com.example.backend_cleaningsupplie.contoller;
+package com.example.backend_cleaningsupplie.companies;
 
-import com.example.backend_cleaningsupplie.entities.Companies;
-import com.example.backend_cleaningsupplie.servics.CompaniesServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+
 @RequestMapping(path = "companies")
 public class CompaniesController {
 

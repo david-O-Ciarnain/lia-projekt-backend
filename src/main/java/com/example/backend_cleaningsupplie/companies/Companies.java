@@ -1,6 +1,7 @@
-package com.example.backend_cleaningsupplie.entities;
+package com.example.backend_cleaningsupplie.companies;
 
 
+import com.example.backend_cleaningsupplie.appuser.AppUser;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,6 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table
 @EqualsAndHashCode
 public class Companies {
 

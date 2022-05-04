@@ -1,6 +1,6 @@
-package com.example.backend_cleaningsupplie.entities;
+package com.example.backend_cleaningsupplie.appuser;
 
-import com.example.backend_cleaningsupplie.userrole.AppUserRole;
+import com.example.backend_cleaningsupplie.companies.Companies;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,6 @@ import java.util.Collections;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table
 @NoArgsConstructor
 public class AppUser implements UserDetails {
 
@@ -35,56 +34,25 @@ public class AppUser implements UserDetails {
 
     @Column(unique = true)
     String userName;
-
-
-    @Column
     String password;
-
-
-    @Column
     String firstName;
-
-
-    @Column
     String lastName;
-
-    /* @Column(unique = true)
-     int employee_number;
- */
-    @Column(unique = true)
     String mail;
-
-    @Column
     LocalDate dateOfBirth;
-
-    @Column
     @Enumerated(EnumType.STRING)
     AppUserRole appUserRole;
-
-    @Column
     boolean locked = false;
-
-    @Column
     boolean enabled = false;
 
-
-
-    @ManyToOne
-    @JoinColumn(name = "companies_id")
-    private Companies companies;
-
-
-    public AppUser(String user_name, String password, String firstName, String last_name, String mail, LocalDate dateOfBirth, AppUserRole appUserRole) {
-        this.userName = user_name;
+    public AppUser(String userName, String password, String firstName, String lastName, String mail, LocalDate dateOfBirth, AppUserRole appUserRole) {
+        this.userName = userName;
         this.password = password;
         this.firstName = firstName;
-        this.lastName = last_name;
+        this.lastName = lastName;
         this.mail = mail;
         this.dateOfBirth = dateOfBirth;
         this.appUserRole = appUserRole;
     }
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -94,7 +62,7 @@ public class AppUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return mail;
+        return userName;
     }
 
     @Override
