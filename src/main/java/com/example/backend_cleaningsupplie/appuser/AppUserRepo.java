@@ -1,6 +1,5 @@
-package com.example.backend_cleaningsupplie.repo;
+package com.example.backend_cleaningsupplie.appuser;
 
-import com.example.backend_cleaningsupplie.entities.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,11 +8,8 @@ import java.util.Optional;
 
 @Repository
 @Transactional(readOnly = true)
-public interface AppUserRepo extends JpaRepository<AppUser, Integer> {
+public interface AppUserRepo extends JpaRepository<AppUser,Long> {
 
-    Optional<AppUser> findByUsername(String username);
-
-
-
+    Optional<AppUser>findByUsername(String username);
+    Optional<AppUser>findByEmail(String email);
 }
-

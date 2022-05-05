@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "rest/registration")
+@RequestMapping(path = "test/registration")
 @AllArgsConstructor
 public class RegistrationController {
 
-    private RegistrationService registrationService;
+    private final RegistrationService registrationService;
+
 
     @PostMapping
-    public String register(@RequestBody RegistrationRequest request){
+    public String registerUser(@RequestBody RegistrationRequest request){
         return registrationService.register(request);
     }
-
 }
