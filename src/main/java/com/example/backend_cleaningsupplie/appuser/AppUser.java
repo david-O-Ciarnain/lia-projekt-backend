@@ -34,7 +34,10 @@ public class AppUser implements UserDetails {
 
     private String firstName;
     private String lastName;
+
+    @Column(unique = true)
     private String username;
+
     private String password;
     private String email;
     private LocalDate dateOfBirth;
