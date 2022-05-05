@@ -50,5 +50,8 @@ public class AppUserService implements UserDetailsService {
 
         return tokenUUID;
     }
+    public void enableAppUser(String email){
+        appUserRepo.enableAppUser(email);
+    }
 
 }

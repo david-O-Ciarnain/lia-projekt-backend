@@ -9,6 +9,7 @@ spring:
       ddl-auto: create-drop
     properties:
       hibernate:
+        globally_quoted_identifiers: true
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
@@ -16,7 +17,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/lia_projekt_backend
     username: demo_user
     password: demo
-
   mail:
     host: localhost
     port: 1025
@@ -30,6 +30,7 @@ spring:
             auth: true
             starttls:
               enable: true
-              connectiontimeout: 5000
-              timeout: 3000
-              writetimeout: 5000
+              connectiontimeout: 10000
+              timeout: 5000
+              writetimeout: 10000
+
