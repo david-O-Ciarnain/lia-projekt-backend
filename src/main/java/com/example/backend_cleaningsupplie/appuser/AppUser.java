@@ -1,6 +1,5 @@
 package com.example.backend_cleaningsupplie.appuser;
 
-import com.example.backend_cleaningsupplie.companies.Companies;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,42 +13,44 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 
+@Entity
 @Getter
 @Setter
 @EqualsAndHashCode
-@Entity
 @NoArgsConstructor
 public class AppUser implements UserDetails {
 
     @Id
     @SequenceGenerator(
             name = "appuser_sequence",
-            sequenceName = "appuser-sequence",
+            sequenceName = "appuser_sequence",
             allocationSize = 1
     )
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "appuser_sequence")
-    int id;
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "appuser_sequence"
+    )
+    private Long id;
 
+    private String firstName;
+    private String lastName;
+    private String username;
+    private String password;
+    private String email;
+    private LocalDate dateOfBirth;
 
-    @Column(unique = true)
-    String userName;
-    String password;
-    String firstName;
-    String lastName;
-    String mail;
-    LocalDate dateOfBirth;
     @Enumerated(EnumType.STRING)
-    AppUserRole appUserRole;
-    boolean locked = false;
-    boolean enabled = false;
+    private AppUserRole appUserRole;
 
-    public AppUser(String userName, String password, String firstName, String lastName, String mail, LocalDate dateOfBirth, AppUserRole appUserRole) {
-        this.userName = userName;
-        this.password = password;
+    private boolean locked = false;
+    private boolean enabled = false;
+
+    public AppUser(String firstName, String lastName, String username, String password, String email, LocalDate dateOfBirth, AppUserRole appUserRole) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.mail = mail;
+        this.username = username;
+        this.password = password;
+        this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.appUserRole = appUserRole;
     }
@@ -61,8 +62,13 @@ public class AppUser implements UserDetails {
     }
 
     @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     @Override
@@ -72,7 +78,7 @@ public class AppUser implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return locked;
+        return !locked;
     }
 
     @Override
@@ -85,5 +91,3 @@ public class AppUser implements UserDetails {
         return enabled;
     }
 }
-
-
