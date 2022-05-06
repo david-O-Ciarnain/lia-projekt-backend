@@ -24,7 +24,7 @@ public class RegistrationService {
     public String register(RegistrationRequest request) {
 
         boolean isEmailValid = emailValidator.test(request.getEmail());
-
+        //TODO enable request.getDateOfBirth(),
         if (!isEmailValid) {
             throw new IllegalStateException("email not valid");
         }
@@ -37,7 +37,7 @@ public class RegistrationService {
                 request.getDateOfBirth(),
                 AppUserRole.USER
         ));
-        String link = "http//localhost:8080/test/registration/confirm?token" + token;
+        String link = "http//localhost:8080/test/registration/confirm?token=" + token;
 
         emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
         return token;
@@ -57,7 +57,7 @@ public class RegistrationService {
         }
         tokenService.setConfirmedAt(token);
         appUserService.enableAppUser(
-                confirmToken.getAppUser().getEmail()
+                confirmToken.getAppUser().getUsername()
         );
         return "confirmed";
     }
