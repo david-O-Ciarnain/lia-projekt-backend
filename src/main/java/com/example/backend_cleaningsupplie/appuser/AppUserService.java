@@ -54,8 +54,6 @@ public class AppUserService implements UserDetailsService {
     public int enableAppUser(String username){
         return  appUserRepo.enableAppUser(username);
     }
-    public void deleteUserById(long id){
-        appUserRepo.deleteById(id);
-    }
+
 
 }
