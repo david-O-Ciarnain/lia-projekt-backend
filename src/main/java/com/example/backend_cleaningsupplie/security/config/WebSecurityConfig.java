@@ -4,12 +4,14 @@ import com.example.backend_cleaningsupplie.appuser.AppUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 
 @Configuration
 @AllArgsConstructor
@@ -18,6 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
     private final AppUserService appUserService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
 
     //TODO: csrf ned to be enable, permitAll net to change, look upp spring security how to work with csrf, google if you don't know what csrf is
@@ -31,7 +34,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .anyRequest()
                 .authenticated().and()
-                .formLogin();
+                .formLogin().and()
+                .logout()
+                .invalidateHttpSession(true)
+                .logoutUrl("/test/registration/logout")
+                .logoutSuccessUrl("/")
+                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.ACCEPTED))
+                .deleteCookies()
+                .permitAll();
     }
 
     @Override
