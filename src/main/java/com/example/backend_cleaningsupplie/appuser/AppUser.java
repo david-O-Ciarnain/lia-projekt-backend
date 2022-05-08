@@ -42,13 +42,16 @@ public class AppUser implements UserDetails {
     private String email;
     private LocalDate dateOfBirth;
 
+    @Column(unique = true)
+    private String login;
+
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
 
     private boolean locked = false;
     private boolean enabled = false;
 
-    public AppUser(String firstName, String lastName, String username, String password, String email, LocalDate dateOfBirth, AppUserRole appUserRole) {
+    public AppUser(String firstName, String lastName, String username, String password, String email , LocalDate dateOfBirth , AppUserRole appUserRole) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;

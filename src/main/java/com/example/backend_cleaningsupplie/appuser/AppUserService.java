@@ -27,6 +27,7 @@ public class AppUserService implements UserDetailsService {
         return appUserRepo.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, username)));
     }
 
+
     public String singUpAppUser(AppUser appUser) {
         boolean userExists = appUserRepo.findByUsername(appUser.getUsername()).isPresent();
         boolean emailExists = appUserRepo.findByEmail(appUser.getEmail()).isPresent();
@@ -50,8 +51,11 @@ public class AppUserService implements UserDetailsService {
 
         return tokenUUID;
     }
-    public void enableAppUser(String email){
-        appUserRepo.enableAppUser(email);
+    public int enableAppUser(String username){
+        return  appUserRepo.enableAppUser(username);
+    }
+    public void deleteUserById(long id){
+        appUserRepo.deleteById(id);
     }
 
 }
