@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -25,6 +26,7 @@ public class FileDB {
     private String type;
 
     @Lob
+    @Type(type = "org.hibernate.type.BinaryType")
     private byte[]data;
 
     public FileDB(String name, String type, byte[] data) {
