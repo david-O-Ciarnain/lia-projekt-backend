@@ -10,4 +10,5 @@ public class BackendCleaningSupplieApplication {
         SpringApplication.run(BackendCleaningSupplieApplication.class, args);
     }
 
+
 }
