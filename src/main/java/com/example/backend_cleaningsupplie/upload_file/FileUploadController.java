@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("http://localhost:8081")
-@RequestMapping("/uploadfile")
+@RequestMapping(path = "uploadFiles")
 @AllArgsConstructor
 public class FileUploadController {
 
     private final FileStorageService fileStorageService;
 
-    @PostMapping("/upload")
+    @PostMapping
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
 
         String message = "";
@@ -41,6 +41,10 @@ public class FileUploadController {
 
         }
     }
+    @GetMapping("/hello")
+    public void stuff(){
+        System.out.println("hello");
+    }
 
     @GetMapping("/files")
     public ResponseEntity<List<ResponseFile>> getAllFiles() {
@@ -55,8 +59,7 @@ public class FileUploadController {
                     fileDB.getName(),
                     fileDownLoadUri,
                     fileDB.getType(),
-                    fileDB.getData().length
-            );
+                    fileDB.getData().length);
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
