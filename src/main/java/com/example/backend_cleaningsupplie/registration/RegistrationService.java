@@ -24,7 +24,7 @@ public class RegistrationService {
     public String register(RegistrationRequest request) {
 
         boolean isEmailValid = emailValidator.test(request.getEmail());
-        //TODO enable request.getDateOfBirth(),
+
         if (!isEmailValid) {
             throw new IllegalStateException("email not valid");
         }

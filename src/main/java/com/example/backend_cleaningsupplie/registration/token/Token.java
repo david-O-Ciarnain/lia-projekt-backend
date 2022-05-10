@@ -4,6 +4,7 @@ import com.example.backend_cleaningsupplie.appuser.AppUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,16 +17,9 @@ public class Token {
 
 
     @Id
-    @SequenceGenerator(
-            name = "token_sequence",
-            sequenceName = "token_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "token_sequence"
-    )
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid",strategy = "uuid2")
+    private String id;
 
     @Column(nullable = false)
     private String token;

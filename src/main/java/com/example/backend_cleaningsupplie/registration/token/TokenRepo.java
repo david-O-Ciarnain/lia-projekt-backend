@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Repository
-public interface TokenRepo extends JpaRepository<Token, Long> {
+public interface TokenRepo extends JpaRepository<Token, String> {
 
     Optional<Token> findByToken(String token);
 
