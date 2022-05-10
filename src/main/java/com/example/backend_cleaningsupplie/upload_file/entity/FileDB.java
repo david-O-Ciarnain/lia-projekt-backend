@@ -26,7 +26,7 @@ public class FileDB {
     private String type;
 
     @Lob
-    @Type(type = "org.hibernate.type.BinaryType")
+   //@Type(type = "org.hibernate.type.BinaryType")
     private byte[]data;
 
     public FileDB(String name, String type, byte[] data) {
