@@ -1,6 +1,8 @@
 package com.example.backend_cleaningsupplie.upload_file.sevice;
 
 import com.example.backend_cleaningsupplie.upload_file.entity.FileDB;
+import com.example.backend_cleaningsupplie.upload_file.entity.FileImgDB;
+import com.example.backend_cleaningsupplie.upload_file.file_repo.FileImgRepo;
 import com.example.backend_cleaningsupplie.upload_file.file_repo.FileRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,12 +21,19 @@ public class FileStorageService {
     private final FileRepo fileRepo;
 
 
+
     //post request
     public FileDB store(MultipartFile file) throws IOException {
+        if (Objects.requireNonNull(file.getContentType()).startsWith("image")) {
+            throw new IOException("need to be a file");
+        }
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+
         FileDB fileDB = new FileDB(fileName, file.getContentType(), file.getBytes());
         return fileRepo.save(fileDB);
     }
+
+
 
     //get request
     public FileDB getFileById(String id) {
