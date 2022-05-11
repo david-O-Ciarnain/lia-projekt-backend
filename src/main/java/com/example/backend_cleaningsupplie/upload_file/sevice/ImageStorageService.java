@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -29,12 +30,12 @@ public class ImageStorageService {
         return fileImgRepo.save(fileImgDB);
     }
 
-    public Stream<FileImgDB> getAllImg() {
-        return fileImgRepo.findAll().stream();
-    }
+    public Stream<FileImgDB> getAllImg(String searchOnNameAndType ) {
 
-    public FileImgDB findImageById(String id) {
-        return fileImgRepo.findById(id).orElseThrow(() -> new IllegalStateException("Can't find image"));
+        if(searchOnNameAndType == null || searchOnNameAndType.isEmpty()) {
+            return fileImgRepo.findAll().stream();
+        }
+            return  fileImgRepo.searchOnNameAndType(searchOnNameAndType).stream();
     }
 
     public void deleteImageById(String id) {

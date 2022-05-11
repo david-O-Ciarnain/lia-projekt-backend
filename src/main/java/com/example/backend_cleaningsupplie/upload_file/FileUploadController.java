@@ -1,19 +1,16 @@
 package com.example.backend_cleaningsupplie.upload_file;
 
-import com.example.backend_cleaningsupplie.upload_file.entity.FileDB;
 import com.example.backend_cleaningsupplie.upload_file.message.ResponseFile;
 import com.example.backend_cleaningsupplie.upload_file.message.ResponseMessage;
 import com.example.backend_cleaningsupplie.upload_file.sevice.FileStorageService;
 import com.example.backend_cleaningsupplie.upload_file.sevice.ImageStorageService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +26,7 @@ public class FileUploadController {
     @PostMapping
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
 
-        String message = "";
+        String message;
 
         try {
             fileStorageService.store(file);
@@ -45,8 +42,8 @@ public class FileUploadController {
     }
 
     @GetMapping("/files")
-    public ResponseEntity<List<ResponseFile>> getAllFiles() {
-        List<ResponseFile> files = fileStorageService.getAllFiles().map(fileDB -> {
+    public ResponseEntity<List<ResponseFile>> getAllFiles(String searchOnNameAndType) {
+        List<ResponseFile> files = fileStorageService.getAllFiles(searchOnNameAndType).map(fileDB -> {
             String fileDownLoadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
                     .path("/files/")
@@ -64,14 +61,6 @@ public class FileUploadController {
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
 
-    @GetMapping("/files/{id}")
-    public ResponseEntity<byte[]>getFileById(@PathVariable String id){
-        FileDB fileDB = fileStorageService.getFileById(id);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename\"" + fileDB.getName() +"\"")
-                .body(fileDB.getData());
-    }
-
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable String id){
         try {
@@ -83,11 +72,11 @@ public class FileUploadController {
         }
     }
 
-    //save image to its own database
+    //save image to its own table
     @PostMapping(path = "/img")
     public ResponseEntity<ResponseMessage>uploadImg(@RequestParam("file")MultipartFile file){
 
-        String message ="";
+        String message;
 
         try {
             imageStorageService.storeImg(file);
@@ -99,8 +88,9 @@ public class FileUploadController {
         }
     }
     @GetMapping(path = "/findImg")
-    public ResponseEntity<List<ResponseFile>>getAllImages(){
-        List<ResponseFile>files = imageStorageService.getAllImg().map(fileImgDB -> {
+    public ResponseEntity<List<ResponseFile>>getAllImages(String searchOnNameAndType){
+        List<ResponseFile>files = imageStorageService.getAllImg(searchOnNameAndType).map(fileImgDB -> {
+
             String fileDownLoadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
                     .path("/findImg")

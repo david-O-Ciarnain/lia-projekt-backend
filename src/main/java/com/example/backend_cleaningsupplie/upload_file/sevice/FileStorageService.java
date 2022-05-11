@@ -1,8 +1,6 @@
 package com.example.backend_cleaningsupplie.upload_file.sevice;
 
 import com.example.backend_cleaningsupplie.upload_file.entity.FileDB;
-import com.example.backend_cleaningsupplie.upload_file.entity.FileImgDB;
-import com.example.backend_cleaningsupplie.upload_file.file_repo.FileImgRepo;
 import com.example.backend_cleaningsupplie.upload_file.file_repo.FileRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,13 +35,13 @@ public class FileStorageService {
 
 
     //get request
-    public FileDB getFileById(String id) {
 
-        return fileRepo.findById(id).orElseThrow(() -> new IllegalStateException("can't find file"));
-    }
 
-    public Stream<FileDB> getAllFiles() {
-        return fileRepo.findAll().stream();
+    public Stream<FileDB> getAllFiles(String searchOnNameAndType) {
+        if(searchOnNameAndType == null || searchOnNameAndType.isEmpty()){
+            return fileRepo.findAll().stream();
+        }
+            return fileRepo.searchOnFileNameAndFileType(searchOnNameAndType).stream();
     }
 
     public void deletedFileByID(String id) {
