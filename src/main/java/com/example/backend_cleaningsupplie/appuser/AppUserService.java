@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -21,6 +22,22 @@ public class AppUserService implements UserDetailsService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private final static String USER_NOT_FOUND = "user with username @s not found";
+
+    public List<AppUser> getAllAppUsers(String keyword) {
+
+        if (keyword == null || keyword.isEmpty()) {
+            return appUserRepo.findAll();
+        }
+        return appUserRepo.search(keyword);
+    }
+
+    public void deleteAppUser(String id) {
+        boolean exists = appUserRepo.existsById(id);
+        if (!exists) {
+            throw new IllegalStateException("file with id " + id + " do not exist");
+        }
+        appUserRepo.deleteById(id);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -51,9 +68,9 @@ public class AppUserService implements UserDetailsService {
 
         return tokenUUID;
     }
-    public int enableAppUser(String username){
-        return  appUserRepo.enableAppUser(username);
-    }
 
+    public int enableAppUser(String username) {
+        return appUserRepo.enableAppUser(username);
+    }
 
 }
