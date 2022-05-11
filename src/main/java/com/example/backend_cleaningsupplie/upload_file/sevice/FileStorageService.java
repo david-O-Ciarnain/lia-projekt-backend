@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -29,7 +30,7 @@ public class FileStorageService {
         }
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
 
-        FileDB fileDB = new FileDB(fileName, file.getContentType(), file.getBytes());
+        FileDB fileDB = new FileDB(fileName, file.getContentType(), LocalDate.now(), file.getBytes());
         return fileRepo.save(fileDB);
     }
 

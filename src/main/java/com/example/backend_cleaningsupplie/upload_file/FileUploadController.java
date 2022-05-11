@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,6 +57,7 @@ public class FileUploadController {
                     fileDB.getName(),
                     fileDownLoadUri,
                     fileDB.getType(),
+                    fileDB.getUploadDate(),
                     fileDB.getData().length);
         }).collect(Collectors.toList());
 
@@ -92,7 +94,7 @@ public class FileUploadController {
             message="Uploaded the image successfully: " + file.getOriginalFilename();
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
         }catch (Exception e){
-            message="Could not upload the image: " + file.getOriginalFilename() + " make sure you the file is a image";
+            message="Could not upload the image: " + file.getOriginalFilename() + " make sure the file is a image";
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
     }
@@ -109,6 +111,7 @@ public class FileUploadController {
                     fileImgDB.getName(),
                     fileDownLoadUri,
                     fileImgDB.getType(),
+                    fileImgDB.getUploadDate(),
                     fileImgDB.getData().length
             );
         }).collect(Collectors.toList());

@@ -22,8 +22,8 @@ public class RegistrationService {
     private final AppUserService appUserService;
     private final EmailSender emailSender;
 
-    public List<AppUser> getAllAppUser(){
-       return appUserService.getAllAppUsers();
+    public List<AppUser> getAllAppUser(String keyword){
+       return appUserService.getAllAppUsers(keyword);
     }
     public void deleteAppUser(String id){
         appUserService.deleteAppUser(id);

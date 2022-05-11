@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "files")
@@ -25,14 +26,17 @@ public class FileDB {
     private String name;
     private String type;
 
+    @Column(name = "date_of_upload")
+    private LocalDate uploadDate;
+
     @Lob
    //@Type(type = "org.hibernate.type.BinaryType")
     private byte[]data;
 
-    public FileDB(String name, String type, byte[] data) {
+    public FileDB(String name, String type, LocalDate uploadDate, byte[] data) {
         this.name = name;
         this.type = type;
+        this.uploadDate = uploadDate;
         this.data = data;
     }
-
 }

@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -24,17 +25,19 @@ public class ImageStorageService {
         }
 
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-        FileImgDB fileImgDB = new FileImgDB(fileName, file.getContentType(), file.getBytes());
+        FileImgDB fileImgDB = new FileImgDB(fileName, file.getContentType(), LocalDate.now(), file.getBytes());
         return fileImgRepo.save(fileImgDB);
     }
 
-    public Stream<FileImgDB>getAllImg(){
+    public Stream<FileImgDB> getAllImg() {
         return fileImgRepo.findAll().stream();
     }
-    public FileImgDB findImageById(String id){
+
+    public FileImgDB findImageById(String id) {
         return fileImgRepo.findById(id).orElseThrow(() -> new IllegalStateException("Can't find image"));
     }
-    public void deleteImageById(String id){
+
+    public void deleteImageById(String id) {
         checkIfIdExits(id);
         fileImgRepo.deleteById(id);
     }

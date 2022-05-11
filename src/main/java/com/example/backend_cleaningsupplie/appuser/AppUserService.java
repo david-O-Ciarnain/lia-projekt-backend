@@ -23,8 +23,12 @@ public class AppUserService implements UserDetailsService {
 
     private final static String USER_NOT_FOUND = "user with username @s not found";
 
-    public List<AppUser> getAllAppUsers() {
-        return appUserRepo.findAll();
+    public List<AppUser> getAllAppUsers(String keyword) {
+
+        if (keyword == null || keyword.isEmpty()) {
+            return appUserRepo.findAll();
+        }
+        return appUserRepo.search(keyword);
     }
 
     public void deleteAppUser(String id) {

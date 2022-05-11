@@ -25,8 +25,8 @@ public class RegistrationController {
     }
 
     @GetMapping(path = "/appusers")
-    public List<AppUser>getAll(){
-       return registrationService.getAllAppUser();
+    public List<AppUser>getAll(String keyword){
+       return registrationService.getAllAppUser(keyword);
     }
     @DeleteMapping(path = "/appusers/{id}")
     public void deleteAppUserById(@PathVariable("id") String id){
