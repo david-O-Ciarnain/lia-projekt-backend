@@ -22,10 +22,11 @@ public class RegistrationService {
     private final AppUserService appUserService;
     private final EmailSender emailSender;
 
-    public List<AppUser> getAllAppUser(String keyword){
-       return appUserService.getAllAppUsers(keyword);
+    public List<AppUser> getAllAppUser(String keyword) {
+        return appUserService.getAllAppUsers(keyword);
     }
-    public void deleteAppUser(String id){
+
+    public void deleteAppUser(String id) {
         appUserService.deleteAppUser(id);
     }
 
@@ -69,8 +70,6 @@ public class RegistrationService {
         );
         return "confirmed";
     }
-
-
 
 
     private String buildEmail(String name, String link) {

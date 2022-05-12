@@ -18,6 +18,8 @@ public interface AppUserRepo extends JpaRepository<AppUser, String> {
 
     Optional<AppUser> findByEmail(String email);
 
+
+
     @Transactional
     @Modifying
     @Query("UPDATE AppUser a SET a.enabled = TRUE WHERE a.username= ?1")
