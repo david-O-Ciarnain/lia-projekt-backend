@@ -1,7 +1,6 @@
 package com.example.backend_cleaningsupplie.appuser;
 
 
-import com.example.backend_cleaningsupplie.observer_pattern.ObserverRequest;
 import com.example.backend_cleaningsupplie.registration.token.Token;
 import com.example.backend_cleaningsupplie.registration.token.TokenService;
 import lombok.AllArgsConstructor;

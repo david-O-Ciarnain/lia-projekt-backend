@@ -80,7 +80,6 @@ public class AppUser implements UserDetails {
         return true;
     }
 
-
     @Override
     public boolean isCredentialsNonExpired() {
         return true;

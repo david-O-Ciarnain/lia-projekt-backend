@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @AllArgsConstructor
@@ -28,13 +29,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .csrf() /*.disable() */
+               .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+                .headers()
+                .frameOptions()
+                .sameOrigin().and()
                 .authorizeRequests()
                 .antMatchers("/test/registration/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated().and()
                 .httpBasic().and()
+                .authorizeRequests()
+                .antMatchers("/","/index","/authenticate")
+                .permitAll()
+                .antMatchers(
+                        "/secured/**/**",
+                        "/secured/success",
+                        "/secured/socket",
+                        "/secured/success"
+                ).authenticated()
+                .anyRequest()
+                .authenticated()
+                .and()
                 .logout()
                 .invalidateHttpSession(true)
                 .logoutUrl("/test/registration/logout")
@@ -44,6 +61,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
     }
+
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
