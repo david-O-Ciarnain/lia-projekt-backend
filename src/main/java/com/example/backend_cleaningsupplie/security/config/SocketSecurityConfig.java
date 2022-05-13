@@ -1,6 +1,5 @@
 package com.example.backend_cleaningsupplie.security.config;
 
-import com.example.backend_cleaningsupplie.appuser.AppUserRole;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.messaging.MessageSecurityMetadataSourceRegistry;
 import org.springframework.security.config.annotation.web.socket.AbstractSecurityWebSocketMessageBrokerConfigurer;

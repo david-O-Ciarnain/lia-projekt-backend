@@ -30,28 +30,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf() /*.disable() */
-               .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
                 .headers()
                 .frameOptions()
-                .sameOrigin().and()
+                .sameOrigin()
+                .and()
                 .authorizeRequests()
                 .antMatchers("/test/registration/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated().and()
                 .httpBasic().and()
-                .authorizeRequests()
-                .antMatchers("/","/index","/authenticate")
-                .permitAll()
-                .antMatchers(
-                        "/secured/**/**",
-                        "/secured/success",
-                        "/secured/socket",
-                        "/secured/success"
-                ).authenticated()
-                .anyRequest()
-                .authenticated()
-                .and()
                 .logout()
                 .invalidateHttpSession(true)
                 .logoutUrl("/test/registration/logout")
