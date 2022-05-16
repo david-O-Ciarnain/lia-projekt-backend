@@ -36,8 +36,9 @@ public class MailService implements MailSender {
 
             } catch (MessagingException e) {
                 LOGGER.error("Failed to send email ", e);
-                throw new IllegalStateException("Failed to send email to " + allUserEmail.get(i));
+                throw new IllegalStateException("Failed to send email to " + allUserEmail.get(i) + "\n");
             }
+            continue;
         }
     }
 }
