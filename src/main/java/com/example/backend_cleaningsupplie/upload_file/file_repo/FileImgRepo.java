@@ -1,7 +1,5 @@
 package com.example.backend_cleaningsupplie.upload_file.file_repo;
 
-import com.example.backend_cleaningsupplie.upload_file.entity.FileDB;
-
 import com.example.backend_cleaningsupplie.upload_file.entity.FileImgDB;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,11 +9,18 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface FileRepo extends JpaRepository<FileDB,String> {
+public interface FileImgRepo extends JpaRepository<FileImgDB, String> {
 
-    @Query("SELECT fi FROM FileDB fi " +
+
+    @Query("SELECT fi FROM FileImgDB fi " +
             "WHERE LOWER(fi.name) LIKE LOWER(CONCAT( '%',:keyword, '%'))" +
             "OR LOWER(fi.type) LIKE LOWER(CONCAT('%',:keyword, '%'))")
-    List<FileDB> searchOnFileNameAndFileType(@Param("keyword") String keyword);
+     List<FileImgDB> searchOnNameAndType(@Param("keyword") String keyword);
 
+   /*
+   @Query("SELECT fi FROM FileImgDB fi " +
+            "WHERE fi.uploadDate = :uploadDate")
+    List<FileImgDB>searchOnDate(@Param("uploadDate")String uploadDate);
+
+    */
 }
