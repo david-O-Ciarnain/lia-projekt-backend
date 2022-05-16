@@ -8,7 +8,9 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+
 import java.time.LocalDate;
+
 
 @Entity
 @Table(name = "files")
@@ -37,6 +39,7 @@ public class FileDB {
         this.name = name;
         this.type = type;
         this.uploadDate = uploadDate;
+
         this.data = data;
     }
 }

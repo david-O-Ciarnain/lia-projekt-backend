@@ -67,6 +67,7 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+<<<<<<< developingBrancsh
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-websocket</artifactId>
@@ -96,6 +97,7 @@
             <artifactId>spring-security-config</artifactId>
             <version>5.6.3</version>
         </dependency>
+
     </dependencies>
 
     <build>

@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+
 import java.time.LocalDate;
+
 
 @Getter
 @Setter
@@ -14,7 +16,7 @@ public class ResponseFile {
     private String name;
     private String url;
     private String type;
-    private LocalDate uploadDate;
+
     private long size;
 
 

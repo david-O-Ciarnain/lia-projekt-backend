@@ -1,6 +1,5 @@
 package com.example.backend_cleaningsupplie.registration;
 
-import com.example.backend_cleaningsupplie.appuser.AppUser;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

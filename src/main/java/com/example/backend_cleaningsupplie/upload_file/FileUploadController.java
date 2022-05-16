@@ -1,10 +1,12 @@
 package com.example.backend_cleaningsupplie.upload_file;
 
+
 import com.example.backend_cleaningsupplie.upload_file.message.ResponseFile;
 import com.example.backend_cleaningsupplie.upload_file.message.ResponseMessage;
 import com.example.backend_cleaningsupplie.upload_file.sevice.FileStorageService;
 import com.example.backend_cleaningsupplie.upload_file.sevice.ImageStorageService;
 import lombok.AllArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +18,14 @@ import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("http://localhost:8081")
+
 @RequestMapping(path = "uploadFiles")
+
 @AllArgsConstructor
 public class FileUploadController {
 
     private final FileStorageService fileStorageService;
+
     private final ImageStorageService imageStorageService;
 
     @PostMapping
@@ -29,6 +34,7 @@ public class FileUploadController {
         String message;
 
         try {
+
             fileStorageService.store(file);
             message = "Uploaded the file successfully: " + file.getOriginalFilename();
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
@@ -42,8 +48,10 @@ public class FileUploadController {
     }
 
     @GetMapping("/files")
+
     public ResponseEntity<List<ResponseFile>> getAllFiles(String searchOnNameAndType) {
         List<ResponseFile> files = fileStorageService.getAllFiles(searchOnNameAndType).map(fileDB -> {
+
             String fileDownLoadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
                     .path("/files/")
@@ -54,16 +62,20 @@ public class FileUploadController {
                     fileDB.getName(),
                     fileDownLoadUri,
                     fileDB.getType(),
+
                     fileDB.getUploadDate(),
                     fileDB.getData().length);
+
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
 
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable String id){
         try {
+
 
             fileStorageService.deletedFileByID(id);
             return ResponseEntity.noContent().build();
@@ -71,6 +83,7 @@ public class FileUploadController {
            return ResponseEntity.notFound().build();
         }
     }
+
 
     //save image to its own table
     @PostMapping(path = "/img")
@@ -108,4 +121,5 @@ public class FileUploadController {
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
+
 }
