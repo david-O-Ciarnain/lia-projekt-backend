@@ -48,7 +48,6 @@ public class FileStorageService {
         checkIfIdExits(id);
         fileRepo.deleteById(id);
     }
-    //TODO fix update file if text file
 
     public void checkIfIdExits(String id) {
 

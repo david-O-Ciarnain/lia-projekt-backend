@@ -51,9 +51,7 @@ public class AppUserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return appUserRepo.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, username)));
     }
-    public String smallMasMessage(String observerRequest){
-        return "";
-    }
+
 
     public String singUpAppUser(AppUser appUser) {
         boolean userExists = appUserRepo.findByUsername(appUser.getUsername()).isPresent();

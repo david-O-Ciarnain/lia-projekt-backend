@@ -1,5 +1,6 @@
 package com.example.backend_cleaningsupplie.security.config;
 
+import com.example.backend_cleaningsupplie.appuser.AppUserRole;
 import com.example.backend_cleaningsupplie.appuser.AppUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
