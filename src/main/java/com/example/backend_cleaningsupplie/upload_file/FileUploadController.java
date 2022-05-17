@@ -1,5 +1,6 @@
 package com.example.backend_cleaningsupplie.upload_file;
 
+import com.example.backend_cleaningsupplie.upload_file.entity.FileDB;
 import com.example.backend_cleaningsupplie.upload_file.message.ResponseFile;
 import com.example.backend_cleaningsupplie.upload_file.message.ResponseMessage;
 import com.example.backend_cleaningsupplie.upload_file.sevice.FileStorageService;
@@ -41,6 +42,7 @@ public class FileUploadController {
         }
     }
 
+
     @GetMapping("/files")
     public ResponseEntity<List<ResponseFile>> getAllFiles(String searchOnNameAndType) {
         List<ResponseFile> files = fileStorageService.getAllFiles(searchOnNameAndType).map(fileDB -> {
@@ -59,6 +61,10 @@ public class FileUploadController {
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
+    }
+    @GetMapping("/files/{id}")
+    public FileDB findById(@PathVariable String id){
+        return fileStorageService.getFileById(id);
     }
 
     @DeleteMapping("/delete/{id}")
