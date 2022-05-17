@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -21,10 +22,17 @@ public class RegistrationService {
     private final AppUserService appUserService;
     private final EmailSender emailSender;
 
+    public List<AppUser> getAllAppUser(String keyword){
+       return appUserService.getAllAppUsers(keyword);
+    }
+    public void deleteAppUser(String id){
+        appUserService.deleteAppUser(id);
+    }
+
     public String register(RegistrationRequest request) {
 
         boolean isEmailValid = emailValidator.test(request.getEmail());
-        //TODO enable request.getDateOfBirth(),
+
         if (!isEmailValid) {
             throw new IllegalStateException("email not valid");
         }
@@ -61,6 +69,9 @@ public class RegistrationService {
         );
         return "confirmed";
     }
+
+
+
 
     private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +

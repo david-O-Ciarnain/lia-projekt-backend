@@ -3,6 +3,8 @@ package com.example.backend_cleaningsupplie.registration;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "test/registration")
 @AllArgsConstructor
@@ -19,6 +21,15 @@ public class RegistrationController {
     @GetMapping(path = "/confirm")
     public String confirm(@RequestParam("token") String token){
         return registrationService.confirmToken(token);
+    }
+
+    @GetMapping(path = "/appusers")
+    public List<AppUser>getAll(String keyword){
+       return registrationService.getAllAppUser(keyword);
+    }
+    @DeleteMapping(path = "/appusers/{id}")
+    public void deleteAppUserById(@PathVariable("id") String id){
+        registrationService.deleteAppUser(id);
     }
 
 
