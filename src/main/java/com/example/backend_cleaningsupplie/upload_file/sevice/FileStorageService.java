@@ -43,12 +43,14 @@ public class FileStorageService {
         }
             return fileRepo.searchOnFileNameAndFileType(searchOnNameAndType).stream();
     }
+    public FileDB getFileById(String id){
+        return fileRepo.findById(id).orElseThrow(() -> new IllegalStateException("file not found"));
+    }
 
     public void deletedFileByID(String id) {
         checkIfIdExits(id);
         fileRepo.deleteById(id);
     }
-    //TODO fix update file if text file
 
     public void checkIfIdExits(String id) {
 

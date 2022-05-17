@@ -1,5 +1,7 @@
 package com.example.backend_cleaningsupplie.appuser;
 
+
+import com.example.backend_cleaningsupplie.mass_mailing.Messages;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +15,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -42,6 +45,10 @@ public class AppUser implements UserDetails {
     private boolean locked = false;
     private boolean enabled = false;
 
+
+
+
+
     public AppUser(String firstName, String lastName, String username, String password, String email , LocalDate dateOfBirth , AppUserRole appUserRole) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,6 +57,10 @@ public class AppUser implements UserDetails {
         this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.appUserRole = appUserRole;
+    }
+
+    public AppUser(String firstName) {
+        this.firstName = firstName;
     }
 
     @Override
@@ -72,7 +83,6 @@ public class AppUser implements UserDetails {
     public boolean isAccountNonExpired() {
         return true;
     }
-
 
     @Override
     public boolean isCredentialsNonExpired() {
