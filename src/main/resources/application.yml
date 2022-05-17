@@ -18,10 +18,10 @@ spring:
     username: demo_user
     password: demo
   mail:
-    host: localhost
-    port: 1025
-    username: hello
-    password: hello
+    host: smtp.google.com
+    port: 587
+    username: demobackend666@gmail.com
+    password: abcDE123
     properties:
       mail:
         smtp:
