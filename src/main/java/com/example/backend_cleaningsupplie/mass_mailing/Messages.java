@@ -1,10 +1,14 @@
 package com.example.backend_cleaningsupplie.mass_mailing;
 
-import com.example.backend_cleaningsupplie.appuser.AppUser;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Getter
 @Setter
@@ -18,24 +22,18 @@ public class Messages {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    private String senderName;
-    private String receiverName;
-    private String message;
+   private String title;
+    private String fulltext;
 
-    @ManyToOne
-    @JoinColumn(name = "app_user_id")
-    private AppUser appUser;
 
    // private String data;
   //  private Status status;
 
-    public Messages(String senderName, String receiverName, String message) {
-        this.senderName = senderName;
-        this.receiverName = receiverName;
-        this.message = message;
+
+    public Messages(String title, String fulltext) {
+        this.title = title;
+        this.fulltext = fulltext;
     }
 
-    public Messages(AppUser appUser) {
-        this.appUser = appUser;
-    }
+
 }
