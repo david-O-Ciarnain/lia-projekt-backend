@@ -1,4 +1,4 @@
-package com.example.backend_cleaningsupplie.mass_mailing;
+package com.example.backend_cleaningsupplie.chatroom;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

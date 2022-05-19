@@ -1,4 +1,4 @@
-package com.example.backend_cleaningsupplie.mass_mailing;
+package com.example.backend_cleaningsupplie.chatroom;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,8 +26,6 @@ public class Messages {
     private String fulltext;
 
 
-   // private String data;
-  //  private Status status;
 
 
     public Messages(String title, String fulltext) {

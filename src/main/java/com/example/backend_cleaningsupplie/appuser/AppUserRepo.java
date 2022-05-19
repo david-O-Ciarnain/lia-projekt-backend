@@ -18,7 +18,8 @@ public interface AppUserRepo extends JpaRepository<AppUser, String> {
 
     Optional<AppUser> findByEmail(String email);
 
-
+void deleteByFirstName(String firstName);
+boolean existsByFirstName(String firstName);
 
     @Transactional
     @Modifying

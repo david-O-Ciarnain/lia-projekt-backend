@@ -1,7 +1,6 @@
 package com.example.backend_cleaningsupplie.appuser;
 
 
-import com.example.backend_cleaningsupplie.mass_mailing.Messages;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 
 @Entity
 @Getter

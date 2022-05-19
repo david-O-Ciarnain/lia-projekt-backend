@@ -1,4 +1,4 @@
-package com.example.backend_cleaningsupplie.mass_mailing;
+package com.example.backend_cleaningsupplie.chatroom;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
