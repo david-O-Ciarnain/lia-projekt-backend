@@ -38,16 +38,16 @@ public class ImageStorageService {
             return  fileImgRepo.searchOnNameAndType(searchOnNameAndType).stream();
     }
 
-    public void deleteImageById(String id) {
-        checkIfIdExits(id);
-        fileImgRepo.deleteById(id);
+    public void deleteImageByName(String name) {
+        checkIfNameExits(name);
+        fileImgRepo.deleteByName(name);
     }
 
-    public void checkIfIdExits(String id) {
+    public void checkIfNameExits(String name) {
 
-        boolean exists = fileImgRepo.existsById(id);
+        boolean exists = fileImgRepo.existsByName(name);
         if (!exists) {
-            throw new IllegalStateException("file with id" + id + " do not exist");
+            throw new IllegalStateException("file with name" + name + " do not exist");
         }
     }
 }

@@ -32,17 +32,14 @@ public class AppUserService implements UserDetailsService {
         }
         return appUserRepo.search(keyword);
     }
-    //this is for the observers
-    public List<AppUser>getAppUsers(){
-        return appUserRepo.findAll();
-    }
 
-    public void deleteAppUser(String id) {
-        boolean exists = appUserRepo.existsById(id);
+
+    public void deleteAppUser(String firstName) {
+        boolean exists = appUserRepo.existsByFirstName(firstName);
         if (!exists) {
-            throw new IllegalStateException("file with id " + id + " do not exist");
+            throw new IllegalStateException("user with first name " + firstName + " do not exist");
         }
-        appUserRepo.deleteById(id);
+        appUserRepo.deleteByFirstName(firstName);
     }
 
 

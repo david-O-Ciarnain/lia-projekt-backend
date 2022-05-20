@@ -62,16 +62,16 @@ public class FileUploadController {
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
-    @GetMapping("/files/{id}")
-    public FileDB findById(@PathVariable String id){
-        return fileStorageService.getFileById(id);
+    @GetMapping("/files/{name}")
+    public FileDB findById(@PathVariable String name){
+        return fileStorageService.getFileByName(name);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable String id){
+    @DeleteMapping("/delete/{name}")
+    public ResponseEntity<Void> deleteByName(@PathVariable String name){
         try {
 
-            fileStorageService.deletedFileByID(id);
+            fileStorageService.deletedFileByName(name);
             return ResponseEntity.noContent().build();
         }catch (Exception e){
            return ResponseEntity.notFound().build();
@@ -113,5 +113,15 @@ public class FileUploadController {
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
+    }
+    @DeleteMapping("/deleteImg/{name}")
+    public ResponseEntity<Void> deleteByImgName(@PathVariable String name){
+        try {
+
+            imageStorageService.deleteImageByName(name);
+            return ResponseEntity.noContent().build();
+        }catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
     }
 }

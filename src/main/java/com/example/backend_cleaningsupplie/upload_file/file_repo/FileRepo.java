@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface FileRepo extends JpaRepository<FileDB,String> {
@@ -16,4 +17,8 @@ public interface FileRepo extends JpaRepository<FileDB,String> {
             "WHERE LOWER(fi.name) LIKE LOWER(CONCAT( '%',:keyword, '%'))" +
             "OR LOWER(fi.type) LIKE LOWER(CONCAT('%',:keyword, '%'))")
     List<FileDB> searchOnFileNameAndFileType(@Param("keyword") String keyword);
+
+    Optional<FileDB>findByName(String name);
+    void deleteByName(String name);
+    boolean existsByName(String name);
 }

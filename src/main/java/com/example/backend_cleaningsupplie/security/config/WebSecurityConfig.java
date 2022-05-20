@@ -30,8 +30,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf() /*.disable() */
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+                .csrf()
+                .ignoringAntMatchers("/test/registration/**","/newsform/**")
+                .and()
                 .headers()
                 .frameOptions()
                 .sameOrigin()
