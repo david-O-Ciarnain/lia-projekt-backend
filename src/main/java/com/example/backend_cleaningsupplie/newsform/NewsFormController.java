@@ -13,8 +13,9 @@ public class NewsFormController {
 
     private final NewsFormService newsFormService;
 
-    @GetMapping(path = "news")
-    public List<NewsForm> getAllNews(String title) {
+    @GetMapping(path = "news/{title}")
+    public List<NewsForm> getAllNews(@PathVariable String title) {
+
         return newsFormService.getAllNews(title);
     }
     @PostMapping(path = "saveNews")
@@ -22,8 +23,9 @@ public class NewsFormController {
        return newsFormService.saveNews(newsForm);
     }
     @DeleteMapping(path = "deleteNews/{title}")
-    public void deleteNews( @PathVariable String title){
+    public String deleteNews( @PathVariable String title){
         newsFormService.deleteNewsMyTitle(title);
+        return "deleted news with " + title;
     }
     @PutMapping(path = "updateNews/{title}")
     public NewsForm updateNews(@RequestBody NewsForm newsForm, @PathVariable String title){
