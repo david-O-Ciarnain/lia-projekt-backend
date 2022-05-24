@@ -12,11 +12,10 @@ import java.util.Optional;
 
 @Repository
 @Transactional(readOnly = true)
-<<<<<<< developingBrancsh
 public interface AppUserRepo extends JpaRepository<AppUser, String> {
 
 
-    Optional<AppUser> findByUsername(String username);
+  Optional<AppUser> findByUsername(String username);
 
     Optional<AppUser> findByEmail(String email);
 

@@ -65,9 +65,9 @@ public class FileUploadController {
                     fileDB.getName(),
                     fileDownLoadUri,
                     fileDB.getType(),
-
                     fileDB.getUploadDate(),
-                    fileDB.getData().length);
+                    fileDB.getData().length
+            );
 
         }).collect(Collectors.toList());
 

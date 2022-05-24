@@ -28,8 +28,8 @@ public class RegistrationService {
         return appUserService.getAllAppUsers(keyword);
     }
 
-    public void deleteAppUser(String id) {
-        appUserService.deleteAppUser(id);
+    public void deleteAppUser(String firstName) {
+        appUserService.deleteAppUser(firstName);
     }
 
     public String register(RegistrationRequest request) {
@@ -75,6 +75,8 @@ public class RegistrationService {
 
         return "confirmed";
     }
+
+
 
 
     private String buildEmail(String name, String link) {

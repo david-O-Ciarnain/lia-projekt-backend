@@ -11,8 +11,6 @@ import java.util.List;
 @RequestMapping(path = "/sendmail/send")
 @AllArgsConstructor
 public class MailController {
-    private final MailController mailController;
-
 
     @PostMapping
     public String send(String to, String email){
