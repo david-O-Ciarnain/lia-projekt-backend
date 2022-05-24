@@ -1,5 +1,6 @@
 package com.example.backend_cleaningsupplie.registration;
 
+import com.example.backend_cleaningsupplie.roles.Roles;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -11,13 +12,14 @@ import java.util.List;
 @ToString
 public class RegistrationRequest {
 
-    //TODO need to work out format with date in JSON when testing in postman
 private final String firstName;
 private final String lastName;
 private final String username;
 private final String password;
 private final String email;
 private final LocalDate dateOfBirth;
+private final String roles;
+
 
 
 

@@ -1,6 +1,7 @@
 package com.example.backend_cleaningsupplie.appuser;
 
 
+import com.example.backend_cleaningsupplie.roles.Roles;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -25,7 +28,7 @@ public class AppUser implements UserDetails {
 
     @Id
     @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid",strategy = "uuid2")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
     private String firstName;
@@ -39,29 +42,24 @@ public class AppUser implements UserDetails {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
-
     @Enumerated(EnumType.STRING)
-    private AppUserRole appUserRole;
+    AppUserRole appUserRole;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<Roles>roles = new ArrayList<>();
 
     private boolean locked = false;
     private boolean enabled = false;
 
 
-
-
-
-    public AppUser(String firstName, String lastName, String username, String password, String email , LocalDate dateOfBirth , AppUserRole appUserRole) {
+    public AppUser(String firstName, String lastName, String username, String password, String email, LocalDate dateOfBirth, Collection<Roles> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
-        this.appUserRole = appUserRole;
-    }
-
-    public AppUser(String firstName) {
-        this.firstName = firstName;
+        this.roles = roles;
     }
 
     @Override
@@ -94,6 +92,7 @@ public class AppUser implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
+
     @Override
     public boolean isAccountNonLocked() {
         return !locked;

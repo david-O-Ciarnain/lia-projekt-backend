@@ -4,8 +4,11 @@ package com.example.backend_cleaningsupplie.appuser;
 import com.example.backend_cleaningsupplie.registration.token.Token;
 import com.example.backend_cleaningsupplie.registration.token.TokenService;
 
+import com.example.backend_cleaningsupplie.roles.Roles;
+import com.example.backend_cleaningsupplie.roles.RolesRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,12 +29,12 @@ import java.util.UUID;
 public class AppUserService implements UserDetailsService {
 
     private final AppUserRepo appUserRepo;
-
+    private final RolesRepo rolesRepo;
     private final TokenService tokenService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-    private final static String USER_NOT_FOUND = "user with username @s not found";
+   // private final static String USER_NOT_FOUND = "user with username @s not found";
 
     public List<AppUser> getAllAppUsers(String keyword) {
 
@@ -42,7 +47,20 @@ public class AppUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return appUserRepo.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, username)));
+        AppUser appUser = appUserRepo.findByUsername(username);
+        if(appUser == null){
+            throw new UsernameNotFoundException("user not found");
+        }
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        appUser.getRoles().forEach(roles -> authorities.add(new SimpleGrantedAuthority(roles.getName())));
+        return new User(appUser.getUsername(),appUser.getPassword(),authorities);
+       // return appUserRepo.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, username)));
+    }
+
+    public void addRoleToUser(String username,String roleName){
+        AppUser appUser = appUserRepo.findByUsername(username);
+        Roles roles = rolesRepo.findByName(roleName);
+        appUser.getRoles().add(roles);
 
     }
 

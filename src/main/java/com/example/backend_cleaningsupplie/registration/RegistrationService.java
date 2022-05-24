@@ -1,10 +1,8 @@
 package com.example.backend_cleaningsupplie.registration;
 
 import com.example.backend_cleaningsupplie.appuser.AppUser;
-import com.example.backend_cleaningsupplie.appuser.AppUserRole;
 import com.example.backend_cleaningsupplie.appuser.AppUserService;
 import com.example.backend_cleaningsupplie.confirm_token_email.EmailSender;
-
 import com.example.backend_cleaningsupplie.registration.token.Token;
 import com.example.backend_cleaningsupplie.registration.token.TokenService;
 import lombok.AllArgsConstructor;
@@ -12,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,8 +45,10 @@ public class RegistrationService {
                 request.getPassword(),
                 request.getEmail(),
                 request.getDateOfBirth(),
-                AppUserRole.ROLE_USER
+                new ArrayList<>()
+
         ));
+        appUserService.addRoleToUser(request.getUsername(),request.getRoles());
         String link = "http//localhost:8080/test/registration/confirm?token=" + token;
 
         emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
