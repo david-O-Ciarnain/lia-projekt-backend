@@ -68,6 +68,7 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+<<<<<<< developingBrancsh
         <dependency>
 
             <groupId>org.springframework.boot</groupId>
@@ -91,6 +92,7 @@
             <artifactId>spring-security-config</artifactId>
             <version>5.6.3</version>
         </dependency>
+
     </dependencies>
     <build>
         <plugins>

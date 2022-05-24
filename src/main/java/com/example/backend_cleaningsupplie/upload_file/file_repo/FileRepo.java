@@ -1,6 +1,7 @@
 package com.example.backend_cleaningsupplie.upload_file.file_repo;
 
 import com.example.backend_cleaningsupplie.upload_file.entity.FileDB;
+
 import com.example.backend_cleaningsupplie.upload_file.entity.FileImgDB;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,7 +19,9 @@ public interface FileRepo extends JpaRepository<FileDB,String> {
             "OR LOWER(fi.type) LIKE LOWER(CONCAT('%',:keyword, '%'))")
     List<FileDB> searchOnFileNameAndFileType(@Param("keyword") String keyword);
 
+
     Optional<FileDB>findByName(String name);
     void deleteByName(String name);
     boolean existsByName(String name);
+
 }

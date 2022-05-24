@@ -15,8 +15,8 @@ spring:
     show-sql: true
   datasource:
     url: jdbc:postgresql://localhost:5432/lia_projekt_backend
-    username: demo_user
-    password: demo
+    username: postgres
+    password: uffe
   mail:
     host: smtp.google.com
     port: 587

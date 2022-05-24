@@ -74,8 +74,10 @@ public class AppUserService implements UserDetailsService {
         return tokenUUID;
     }
 
+
     public int enableAppUser(String username) {
         return appUserRepo.enableAppUser(username);
     }
+
 
 }

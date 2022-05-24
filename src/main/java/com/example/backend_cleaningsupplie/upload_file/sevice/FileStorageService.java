@@ -8,13 +8,16 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+
 import java.time.LocalDate;
+
 import java.util.Objects;
 import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
 public class FileStorageService {
+
 
 
     private final FileRepo fileRepo;
@@ -41,6 +44,7 @@ public class FileStorageService {
             return fileRepo.findAll().stream();
         }
             return fileRepo.searchOnFileNameAndFileType(searchOnNameAndType).stream();
+
     }
     public FileDB getFileByName(String name){
         return fileRepo.findByName(name).orElseThrow(() -> new IllegalStateException("file not found"));
