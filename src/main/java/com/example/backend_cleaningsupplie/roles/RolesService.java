@@ -11,24 +11,23 @@ public class RolesService {
 
     private RolesRepo rolesRepo;
 
-    private void savedRoles(){
+    public String savedRoles(String name){
         List<Roles>rolesList = List.of(
-                new Roles("ROLE_USER"),
+               /* new Roles("ROLE_USER"),
                 new Roles("ROLE_MANAGER"),
                 new Roles("ROLE_ADMIN"),
                 new Roles("ROLE_SUPER_ADMIN")
+
+                */
+                new Roles(name)
         );
         rolesRepo.saveAll(rolesList);
+        return name;
     }
 
-    public List<Roles>getRoles(){
 
-        savedRoles();
-        return rolesRepo.findAll();
-    }
     public Roles getRole(String roleName){
-        savedRoles();
-      Roles roles =  rolesRepo.findByName(roleName);
-      return roles;
+
+        return rolesRepo.findByName(roleName);
     }
 }

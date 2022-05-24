@@ -37,10 +37,11 @@ public class RegistrationService {
     public String register(RegistrationRequest request) {
 
         boolean isEmailValid = emailValidator.test(request.getEmail());
-        String admin ="ROLE_ADMIN";
+
         if (!isEmailValid) {
             throw new IllegalStateException("email not valid");
         }
+        rolesService.savedRoles(request.getRoles());
         String token = appUserService.singUpAppUser(new AppUser(
                 request.getFirstName(),
                 request.getLastName(),
@@ -48,7 +49,7 @@ public class RegistrationService {
                 request.getPassword(),
                 request.getEmail(),
                 request.getDateOfBirth(),
-                Collections.singleton(rolesService.getRole(admin))
+                Collections.singleton(rolesService.getRole(request.getRoles()))
 
 
         ));
