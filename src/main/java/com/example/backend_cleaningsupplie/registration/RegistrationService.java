@@ -5,6 +5,7 @@ import com.example.backend_cleaningsupplie.appuser.AppUserService;
 import com.example.backend_cleaningsupplie.confirm_token_email.EmailSender;
 import com.example.backend_cleaningsupplie.registration.token.Token;
 import com.example.backend_cleaningsupplie.registration.token.TokenService;
+import com.example.backend_cleaningsupplie.roles.RolesService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ public class RegistrationService {
     private final TokenService tokenService;
     private final AppUserService appUserService;
     private final EmailSender emailSender;
+    private final RolesService rolesService;
 
 
     public List<AppUser> getAllAppUser(String keyword) {
@@ -45,7 +47,8 @@ public class RegistrationService {
                 request.getPassword(),
                 request.getEmail(),
                 request.getDateOfBirth(),
-                new ArrayList<>()
+                rolesService.getRoles()
+
 
         ));
         appUserService.addRoleToUser(request.getUsername(),request.getRoles());
