@@ -1,6 +1,8 @@
 package com.example.backend_cleaningsupplie.upload_file;
 
 
+import com.example.backend_cleaningsupplie.upload_file.entity.FileDB;
+
 import com.example.backend_cleaningsupplie.upload_file.message.ResponseFile;
 import com.example.backend_cleaningsupplie.upload_file.message.ResponseMessage;
 import com.example.backend_cleaningsupplie.upload_file.sevice.FileStorageService;
@@ -47,6 +49,7 @@ public class FileUploadController {
         }
     }
 
+
     @GetMapping("/files")
 
     public ResponseEntity<List<ResponseFile>> getAllFiles(String searchOnNameAndType) {
@@ -70,14 +73,18 @@ public class FileUploadController {
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
+    @GetMapping("/files/{name}")
+    public FileDB findById(@PathVariable String name){
+        return fileStorageService.getFileByName(name);
+    }
 
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable String id){
+    @DeleteMapping("/delete/{name}")
+    public ResponseEntity<Void> deleteByName(@PathVariable String name){
         try {
 
+            fileStorageService.deletedFileByName(name);
 
-            fileStorageService.deletedFileByID(id);
             return ResponseEntity.noContent().build();
         }catch (Exception e){
            return ResponseEntity.notFound().build();
@@ -120,6 +127,17 @@ public class FileUploadController {
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
+    }
+
+    @DeleteMapping("/deleteImg/{name}")
+    public ResponseEntity<Void> deleteByImgName(@PathVariable String name){
+        try {
+
+            imageStorageService.deleteImageByName(name);
+            return ResponseEntity.noContent().build();
+        }catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

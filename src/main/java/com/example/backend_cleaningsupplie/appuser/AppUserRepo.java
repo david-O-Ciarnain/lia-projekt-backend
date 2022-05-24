@@ -20,6 +20,9 @@ public interface AppUserRepo extends JpaRepository<AppUser, String> {
 
     Optional<AppUser> findByEmail(String email);
 
+void deleteByFirstName(String firstName);
+boolean existsByFirstName(String firstName);
+
     @Transactional
     @Modifying
     @Query("UPDATE AppUser a SET a.enabled = TRUE WHERE a.username= ?1")

@@ -1,5 +1,6 @@
 package com.example.backend_cleaningsupplie.appuser;
 
+
 import com.example.backend_cleaningsupplie.registration.token.Token;
 import com.example.backend_cleaningsupplie.registration.token.TokenService;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class AppUserService implements UserDetailsService {
     private final TokenService tokenService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+
     private final static String USER_NOT_FOUND = "user with username @s not found";
 
     public List<AppUser> getAllAppUsers(String keyword) {
@@ -31,13 +33,16 @@ public class AppUserService implements UserDetailsService {
         return appUserRepo.search(keyword);
     }
 
-    public void deleteAppUser(String id) {
-        boolean exists = appUserRepo.existsById(id);
+
+    public void deleteAppUser(String firstName) {
+        boolean exists = appUserRepo.existsByFirstName(firstName);
         if (!exists) {
-            throw new IllegalStateException("file with id " + id + " do not exist");
+            throw new IllegalStateException("user with first name " + firstName + " do not exist");
         }
-        appUserRepo.deleteById(id);
+        appUserRepo.deleteByFirstName(firstName);
     }
+
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
