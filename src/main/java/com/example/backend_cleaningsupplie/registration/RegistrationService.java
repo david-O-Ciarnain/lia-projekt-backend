@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -36,7 +37,7 @@ public class RegistrationService {
     public String register(RegistrationRequest request) {
 
         boolean isEmailValid = emailValidator.test(request.getEmail());
-
+        String admin ="ROLE_ADMIN";
         if (!isEmailValid) {
             throw new IllegalStateException("email not valid");
         }
@@ -47,7 +48,7 @@ public class RegistrationService {
                 request.getPassword(),
                 request.getEmail(),
                 request.getDateOfBirth(),
-                rolesService.getRoles()
+                Collections.singleton(rolesService.getRole(admin))
 
 
         ));
