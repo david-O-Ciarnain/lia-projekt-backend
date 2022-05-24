@@ -24,7 +24,7 @@ public class FileStorageService {
 
 
 
-    //post request
+
     public FileDB store(MultipartFile file) throws IOException {
         if (Objects.requireNonNull(file.getContentType()).startsWith("image")) {
             throw new IOException("need to be a file");
@@ -37,7 +37,6 @@ public class FileStorageService {
 
 
 
-    //get request
 
 
     public Stream<FileDB> getAllFiles(String searchOnNameAndType) {
@@ -47,18 +46,20 @@ public class FileStorageService {
             return fileRepo.searchOnFileNameAndFileType(searchOnNameAndType).stream();
 
     }
-
-    public void deletedFileByID(String id) {
-        checkIfIdExits(id);
-        fileRepo.deleteById(id);
+    public FileDB getFileByName(String name){
+        return fileRepo.findByName(name).orElseThrow(() -> new IllegalStateException("file not found"));
     }
-    //TODO fix update file if text file
 
-    public void checkIfIdExits(String id) {
+    public void deletedFileByName(String name) {
+        checkIfNameExits(name);
+        fileRepo.deleteByName(name);
+    }
 
-        boolean exists = fileRepo.existsById(id);
+    public void checkIfNameExits(String name) {
+
+        boolean exists = fileRepo.existsByName(name);
         if (!exists) {
-            throw new IllegalStateException("file with id" + id + " do not exist");
+            throw new IllegalStateException("file with name" + name + " do not exist");
         }
     }
 

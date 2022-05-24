@@ -4,6 +4,7 @@ import com.example.backend_cleaningsupplie.appuser.AppUser;
 import com.example.backend_cleaningsupplie.appuser.AppUserRole;
 import com.example.backend_cleaningsupplie.appuser.AppUserService;
 import com.example.backend_cleaningsupplie.confirm_token_email.EmailSender;
+
 import com.example.backend_cleaningsupplie.registration.token.Token;
 import com.example.backend_cleaningsupplie.registration.token.TokenService;
 import lombok.AllArgsConstructor;
@@ -22,11 +23,13 @@ public class RegistrationService {
     private final AppUserService appUserService;
     private final EmailSender emailSender;
 
-    public List<AppUser> getAllAppUser(String keyword){
-       return appUserService.getAllAppUsers(keyword);
+
+    public List<AppUser> getAllAppUser(String keyword) {
+        return appUserService.getAllAppUsers(keyword);
     }
-    public void deleteAppUser(String id){
-        appUserService.deleteAppUser(id);
+
+    public void deleteAppUser(String firstName) {
+        appUserService.deleteAppUser(firstName);
     }
 
     public String register(RegistrationRequest request) {
@@ -43,11 +46,12 @@ public class RegistrationService {
                 request.getPassword(),
                 request.getEmail(),
                 request.getDateOfBirth(),
-                AppUserRole.USER
+                AppUserRole.ROLE_USER
         ));
         String link = "http//localhost:8080/test/registration/confirm?token=" + token;
 
         emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
+
         return token;
     }
 
@@ -67,6 +71,8 @@ public class RegistrationService {
         appUserService.enableAppUser(
                 confirmToken.getAppUser().getUsername()
         );
+
+
         return "confirmed";
     }
 

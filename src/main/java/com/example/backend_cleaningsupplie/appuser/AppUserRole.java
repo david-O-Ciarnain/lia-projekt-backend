@@ -2,7 +2,7 @@ package com.example.backend_cleaningsupplie.appuser;
 
 public enum AppUserRole {
 
-    USER,
+    ROLE_USER,
     USER_ADMIN,
-    ADMIN
+    ROLE_ADMIN
 }

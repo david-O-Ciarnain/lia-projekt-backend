@@ -16,7 +16,7 @@ public class ResponseFile {
     private String name;
     private String url;
     private String type;
-
+    private LocalDate uploadDate;
     private long size;
 
 

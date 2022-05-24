@@ -1,5 +1,6 @@
 package com.example.backend_cleaningsupplie.registration;
 
+import com.example.backend_cleaningsupplie.appuser.AppUser;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,9 +28,9 @@ public class RegistrationController {
     public List<AppUser>getAll(String keyword){
        return registrationService.getAllAppUser(keyword);
     }
-    @DeleteMapping(path = "/appusers/{id}")
-    public void deleteAppUserById(@PathVariable("id") String id){
-        registrationService.deleteAppUser(id);
+    @DeleteMapping(path = "/appusers/{name}")
+    public void deleteAppUserByName(@PathVariable("name") String name){
+        registrationService.deleteAppUser(name);
     }
 
 

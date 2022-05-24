@@ -3,6 +3,7 @@ package com.example.backend_cleaningsupplie.registration;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @EqualsAndHashCode
@@ -17,6 +18,9 @@ private final String username;
 private final String password;
 private final String email;
 private final LocalDate dateOfBirth;
+
+
+
 
 
 }

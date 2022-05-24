@@ -1,25 +1,33 @@
 package com.example.backend_cleaningsupplie.appuser;
 
+
 import com.example.backend_cleaningsupplie.registration.token.Token;
 import com.example.backend_cleaningsupplie.registration.token.TokenService;
+
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.UUID;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class AppUserService implements UserDetailsService {
 
     private final AppUserRepo appUserRepo;
+
     private final TokenService tokenService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     private final static String USER_NOT_FOUND = "user with username @s not found";
 
@@ -31,22 +39,15 @@ public class AppUserService implements UserDetailsService {
         return appUserRepo.search(keyword);
     }
 
-    public void deleteAppUser(String id) {
-        boolean exists = appUserRepo.existsById(id);
-        if (!exists) {
-            throw new IllegalStateException("file with id " + id + " do not exist");
-        }
-        appUserRepo.deleteById(id);
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return appUserRepo.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, username)));
+
     }
 
-
     public String singUpAppUser(AppUser appUser) {
-        boolean userExists = appUserRepo.findByUsername(appUser.getUsername()).isPresent();
+        boolean userExists = appUserRepo.existsByFirstName(appUser.getUsername());
         boolean emailExists = appUserRepo.findByEmail(appUser.getEmail()).isPresent();
 
         if (userExists && emailExists) {
@@ -67,6 +68,23 @@ public class AppUserService implements UserDetailsService {
         tokenService.saveToken(token);
 
         return tokenUUID;
+    }
+
+    public List<AppUser> getAppUsers(String keyword) {
+
+        if (keyword == null || keyword.isEmpty()) {
+            return appUserRepo.findAll();
+        }
+        return appUserRepo.search(keyword);
+    }
+
+
+    public void deleteAppUser(String firstName) {
+        boolean exists = appUserRepo.existsByFirstName(firstName);
+        if (!exists) {
+            throw new IllegalStateException("user with first name " + firstName + " do not exist");
+        }
+        appUserRepo.deleteByFirstName(firstName);
     }
 
 
