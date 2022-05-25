@@ -12,30 +12,28 @@ public class RolesService {
 
     private RolesRepo rolesRepo;
 
-    public String savedRoles(String name){
-        List<Roles>preSetRoles = List.of(
-               new Roles("USER"),
-               new Roles("MANAGER"),
-                       new Roles("ADMIN"),
-              new Roles("SUPER_ADMIN")
-       );
-        if(name == null){
-            throw new IllegalStateException("no roles have been added");
-        }
-        if(rolesRepo.existsByName(name)){
-            throw new IllegalStateException("roles already exists ");
-        }
-        List<Roles> rolesList = new ArrayList<>(preSetRoles);
-            rolesList.add(new Roles(name));
 
-        rolesRepo.saveAll(rolesList);
-        return name;
 
-    }
-    public List<Roles> getAllRolls(){
+    public List<Roles> getAllRolls() {
+        List<Roles> preSetRoles = new ArrayList<>();
+
+        if(preSetRoles.isEmpty()){
+            preSetRoles = List.of(
+                    new Roles("USER"),
+                    new Roles("MANAGER"),
+                    new Roles("ADMIN"),
+                    new Roles("SUPER_ADMIN")
+
+            );
+            List<Roles> rolesList = new ArrayList<>(preSetRoles);
+            rolesRepo.saveAll(rolesList);
+        }
+
+
+
+
         return rolesRepo.findAll();
     }
-
 
 
 }

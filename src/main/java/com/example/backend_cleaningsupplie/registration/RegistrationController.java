@@ -48,24 +48,18 @@ public class RegistrationController {
         return registrationService.getRoles();
     }
 
-    @PostMapping(path = "roles/save")
-    public ResponseEntity<String> saveRole(@RequestBody String roleName) {
-
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/test/registration/roles/save").toUriString());
 
 
-
-        return ResponseEntity.created(uri).body(registrationService.saveRoles(roleName));
-    }
     @PostMapping(path = "roles/addroletouser")
-    public ResponseEntity<?> roleToUser(@RequestBody RoleRequest request){
+    public ResponseEntity<?> roleToUser(@RequestBody RoleRequest request) {
 
-        appUserService.addRoleToUser(request.getUsername(),request.getName());
+        appUserService.addRoleToUser(request.getUsername(), request.getName());
         return ResponseEntity.ok().build();
     }
 }
+
 @Data
- class RoleRequest {
+class RoleRequest {
 
     private String username;
     private String name;

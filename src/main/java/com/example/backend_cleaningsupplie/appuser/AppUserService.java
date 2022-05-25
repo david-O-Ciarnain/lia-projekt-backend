@@ -34,8 +34,6 @@ public class AppUserService implements UserDetailsService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-   // private final static String USER_NOT_FOUND = "user with username @s not found";
-
     public List<AppUser> getAllAppUsers(String keyword) {
 
         if (keyword == null || keyword.isEmpty()) {
@@ -48,20 +46,20 @@ public class AppUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = appUserRepo.findByUsername(username);
-        if(appUser == null){
+        if (appUser == null) {
             throw new UsernameNotFoundException("user not found");
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         appUser.getRoles().forEach(roles -> authorities.add(new SimpleGrantedAuthority(roles.getName())));
-        return new User(appUser.getUsername(),appUser.getPassword(),authorities);
-       // return appUserRepo.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, username)));
+        return new User(appUser.getUsername(), appUser.getPassword(), authorities);
+
     }
 
-    public void addRoleToUser(String username,String roleName){
+
+    public void addRoleToUser(String username, String roleName) {
         AppUser appUser = appUserRepo.findByUsername(username);
         Roles roles = rolesRepo.findByName(roleName);
         appUser.getRoles().add(roles);
-
     }
 
     public String singUpAppUser(AppUser appUser) {

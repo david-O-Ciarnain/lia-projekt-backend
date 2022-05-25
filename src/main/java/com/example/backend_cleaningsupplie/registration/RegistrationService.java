@@ -61,13 +61,10 @@ public class RegistrationService {
         return token;
     }
 
-    public String saveRoles(String roleName) {
-        return rolesService.savedRoles(roleName);
-    }
-
     public List<Roles> getRoles() {
         return rolesService.getAllRolls();
     }
+
 
     @Transactional
     public String confirmToken(String token) {
