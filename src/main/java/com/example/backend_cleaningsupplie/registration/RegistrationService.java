@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -50,11 +50,9 @@ public class RegistrationService {
                 request.getPassword(),
                 request.getEmail(),
                 request.getDateOfBirth(),
-                Collections.singleton(rolesService.getRole(request.getRoles()))
+                new ArrayList<>()
 
         ));
-
-
 
         String link = "http//localhost:8080/test/registration/confirm?token=" + token;
 
@@ -62,13 +60,12 @@ public class RegistrationService {
 
         return token;
     }
-    public void addRoleToUser(String username,String roleName){
-        appUserService.addRoleToUser(username,roleName);
+
+    public String saveRoles(String roleName) {
+        return rolesService.savedRoles(roleName);
     }
-    public String saveRoles(String roleName){
-       return rolesService.savedRoles(roleName);
-    }
-    public List<Roles>getRoles(){
+
+    public List<Roles> getRoles() {
         return rolesService.getAllRolls();
     }
 
@@ -162,4 +159,6 @@ public class RegistrationService {
                 "\n" +
                 "</div></div>";
     }
+
+
 }

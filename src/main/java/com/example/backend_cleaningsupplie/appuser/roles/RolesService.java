@@ -11,24 +11,21 @@ import java.util.List;
 public class RolesService {
 
     private RolesRepo rolesRepo;
-    public Roles saveNewRol(Roles roles){
-        if(roles == null){
-            throw new IllegalStateException("no roles have been added");
-        }
-        if(rolesRepo.existsByName(roles)){
-            throw new IllegalStateException("roles already exists ");
-        }
-        return rolesRepo.save(roles);
-    }
 
     public String savedRoles(String name){
-        List<Roles>rolesList = new ArrayList<>();
-               /* new Roles("ROLE_USER"),
-                new Roles("ROLE_MANAGER"),
-                new Roles("ROLE_ADMIN"),
-                new Roles("ROLE_SUPER_ADMIN")
-
-                */
+        List<Roles>preSetRoles = List.of(
+               new Roles("USER"),
+               new Roles("MANAGER"),
+                       new Roles("ADMIN"),
+              new Roles("SUPER_ADMIN")
+       );
+        if(name == null){
+            throw new IllegalStateException("no roles have been added");
+        }
+        if(rolesRepo.existsByName(name)){
+            throw new IllegalStateException("roles already exists ");
+        }
+        List<Roles> rolesList = new ArrayList<>(preSetRoles);
             rolesList.add(new Roles(name));
 
         rolesRepo.saveAll(rolesList);
@@ -40,8 +37,5 @@ public class RolesService {
     }
 
 
-    public Roles getRole(String roleName){
 
-        return rolesRepo.findByName(roleName);
-    }
 }
