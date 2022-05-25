@@ -1,6 +1,6 @@
 package com.example.backend_cleaningsupplie.registration;
 
-import com.example.backend_cleaningsupplie.roles.Roles;
+import com.example.backend_cleaningsupplie.appuser.roles.Roles;
 import lombok.*;
 
 import java.time.LocalDate;

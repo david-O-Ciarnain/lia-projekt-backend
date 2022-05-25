@@ -1,4 +1,4 @@
-package com.example.backend_cleaningsupplie.roles;
+package com.example.backend_cleaningsupplie.appuser.roles;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

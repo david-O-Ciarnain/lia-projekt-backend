@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-    //TODO: csrf need to be enable, permitAll net to change, look upp spring security how to work with csrf, google if you don't know what csrf is
+
 
 
 
@@ -35,6 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/test/registration/**")
+                .permitAll()
+                .antMatchers("/roles/save/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated().and()
