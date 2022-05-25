@@ -4,8 +4,8 @@ package com.example.backend_cleaningsupplie.appuser;
 import com.example.backend_cleaningsupplie.registration.token.Token;
 import com.example.backend_cleaningsupplie.registration.token.TokenService;
 
-import com.example.backend_cleaningsupplie.roles.Roles;
-import com.example.backend_cleaningsupplie.roles.RolesRepo;
+import com.example.backend_cleaningsupplie.appuser.roles.Roles;
+import com.example.backend_cleaningsupplie.appuser.roles.RolesRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

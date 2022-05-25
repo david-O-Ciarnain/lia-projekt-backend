@@ -2,17 +2,17 @@ package com.example.backend_cleaningsupplie.registration;
 
 import com.example.backend_cleaningsupplie.appuser.AppUser;
 import com.example.backend_cleaningsupplie.appuser.AppUserService;
+import com.example.backend_cleaningsupplie.appuser.roles.Roles;
+import com.example.backend_cleaningsupplie.appuser.roles.RolesService;
 import com.example.backend_cleaningsupplie.confirm_token_email.EmailSender;
 import com.example.backend_cleaningsupplie.registration.token.Token;
 import com.example.backend_cleaningsupplie.registration.token.TokenService;
-import com.example.backend_cleaningsupplie.roles.RolesService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -34,6 +34,7 @@ public class RegistrationService {
         appUserService.deleteAppUser(firstName);
     }
 
+
     public String register(RegistrationRequest request) {
 
         boolean isEmailValid = emailValidator.test(request.getEmail());
@@ -41,7 +42,7 @@ public class RegistrationService {
         if (!isEmailValid) {
             throw new IllegalStateException("email not valid");
         }
-        rolesService.savedRoles(request.getRoles());
+
         String token = appUserService.singUpAppUser(new AppUser(
                 request.getFirstName(),
                 request.getLastName(),
@@ -49,16 +50,23 @@ public class RegistrationService {
                 request.getPassword(),
                 request.getEmail(),
                 request.getDateOfBirth(),
-                Collections.singleton(rolesService.getRole(request.getRoles()))
-
+                new ArrayList<>()
 
         ));
-        appUserService.addRoleToUser(request.getUsername(),request.getRoles());
+
         String link = "http//localhost:8080/test/registration/confirm?token=" + token;
 
         emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
 
         return token;
+    }
+
+    public String saveRoles(String roleName) {
+        return rolesService.savedRoles(roleName);
+    }
+
+    public List<Roles> getRoles() {
+        return rolesService.getAllRolls();
     }
 
     @Transactional
@@ -81,8 +89,6 @@ public class RegistrationService {
 
         return "confirmed";
     }
-
-
 
 
     private String buildEmail(String name, String link) {
@@ -153,4 +159,6 @@ public class RegistrationService {
                 "\n" +
                 "</div></div>";
     }
+
+
 }

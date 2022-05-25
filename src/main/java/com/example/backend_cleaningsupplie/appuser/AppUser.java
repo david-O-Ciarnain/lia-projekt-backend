@@ -1,7 +1,7 @@
 package com.example.backend_cleaningsupplie.appuser;
 
 
-import com.example.backend_cleaningsupplie.roles.Roles;
+import com.example.backend_cleaningsupplie.appuser.roles.Roles;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -17,7 +16,6 @@ import java.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 @Entity
 @Getter
